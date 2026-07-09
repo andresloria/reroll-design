@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
 </head>
 <body>
 
@@ -68,6 +68,27 @@
             <p class="two-up__desc">Plan opcional. Mantenemos tu sitio seguro, rápido y al día.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLANES (vitrina premium · dados) ============ -->
+  <section class="dice" id="planes" aria-label="Resumen de planes">
+    <canvas class="dice__spark" aria-hidden="true"></canvas>
+    <div class="dice__glow" aria-hidden="true"></div>
+    <div class="wrap dice__inner">
+      <div class="dice__head">
+        <p class="dice__eyebrow">Elegí tu jugada</p>
+        <h2 class="dice__title">Planes que juegan a tu favor</h2>
+        <p class="dice__sub">Un pago único para crear tu sitio, y si querés, mantenimiento mensual. Tirá los dados.</p>
+        <div class="dice__toggle" id="diceToggle" role="tablist" aria-label="Tipo de precio">
+          <span class="dice__pill" aria-hidden="true"></span>
+          <button class="dice__tab is-on" data-mode="crea" role="tab" aria-selected="true">Creación · único</button>
+          <button class="dice__tab" data-mode="mant" role="tab" aria-selected="false">Mantenimiento · mes</button>
+        </div>
+      </div>
+      <div class="dice__grid" id="diceGrid">
+        <p class="dice__fallback">Mirá el detalle completo de cada plan más abajo ↓</p>
       </div>
     </div>
   </section>
@@ -315,6 +336,6 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>
