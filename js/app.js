@@ -134,3 +134,63 @@ document.getElementById('year').textContent = new Date().getFullYear();
     window.addEventListener('resize', resize);
   }
 })();
+
+// ============ Home dark editorial (rr) ============
+(function () {
+  var pips = {
+    1: [[50, 50]], 2: [[30, 30], [70, 70]], 3: [[28, 28], [50, 50], [72, 72]],
+    4: [[30, 30], [70, 30], [30, 70], [70, 70]],
+    5: [[30, 30], [70, 30], [50, 50], [30, 70], [70, 70]],
+    6: [[30, 28], [70, 28], [30, 50], [70, 50], [30, 72], [70, 72]]
+  };
+  function dieMarkup(n) {
+    var c = pips[n].map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="8" fill="#E8B84B"/>'; }).join('');
+    return '<rect x="6" y="6" width="88" height="88" rx="20" fill="none" stroke="#f4f1ea" stroke-width="6"/>' + c;
+  }
+  var rand = function () { return 1 + Math.floor(Math.random() * 6); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // dados del proceso
+  document.querySelectorAll('.rr-step__die').forEach(function (el) {
+    el.innerHTML = '<svg viewBox="0 0 100 100" width="40" height="40" aria-hidden="true">' + dieMarkup(+el.dataset.pips || 1) + '</svg>';
+  });
+
+  // hero: reroll de la palabra + tirada del dado
+  var word = document.getElementById('rrWord');
+  var dieSvg = document.getElementById('rrDieSvg');
+  var btn = document.getElementById('rrReroll');
+  if (word && dieSvg && btn) {
+    var words = ['venden.', 'convierten.', 'enamoran.', 'destacan.', 'rinden.'];
+    var wi = 0, rolling = false;
+    dieSvg.innerHTML = dieMarkup(5);
+    btn.addEventListener('click', function () {
+      if (rolling) return; rolling = true;
+      wi = (wi + 1) % words.length;
+      if (reduce) { word.textContent = words[wi]; dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
+      var ticks = 0, iv = setInterval(function () {
+        dieSvg.innerHTML = dieMarkup(rand()); ticks++;
+        if (ticks > 8) { clearInterval(iv); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; }
+      }, 60);
+      word.style.transition = 'none'; word.style.opacity = '0'; word.style.transform = 'translateY(10px)';
+      setTimeout(function () {
+        word.textContent = words[wi];
+        word.style.transition = 'opacity .3s, transform .3s';
+        word.style.opacity = '1'; word.style.transform = 'none';
+      }, 150);
+    });
+  }
+
+  // trabajo: preview que cambia al pasar por cada fila
+  var prev = document.getElementById('rrPreviewImg');
+  if (prev) {
+    document.querySelectorAll('.rr-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        var src = row.getAttribute('data-img');
+        if (src && prev.getAttribute('src') !== src) {
+          prev.style.opacity = '0';
+          setTimeout(function () { prev.src = src; prev.style.opacity = '1'; }, 120);
+        }
+      });
+    });
+  }
+})();
