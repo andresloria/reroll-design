@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
 </head>
 <body class="rr">
   <div class="rr-grain" aria-hidden="true"></div>
@@ -84,36 +84,53 @@
   <section class="rr-work" id="trabajo">
     <div class="wrap">
       <div class="rr-work__head reveal">
-        <h2 class="rr-h2">Trabajo seleccionado</h2>
-        <span class="rr-count">03 / 03</span>
+        <h2 class="rr-h2">Proyectos, ya en línea</h2>
+        <a href="#contacto" class="rr-work__cta">Quiero el mío ↗</a>
       </div>
-      <div class="rr-work__grid">
-        <div class="rr-rows reveal">
-          <a class="rr-row" href="https://translios-web.vercel.app" target="_blank" rel="noopener" data-img="assets/work/translios.webp">
-            <span class="rr-row__num">01</span>
-            <span class="rr-row__name">Translios</span>
-            <span class="rr-row__tag">Transporte · Next.js</span>
-            <span class="rr-row__arr">↗</span>
-            <img class="rr-row__thumb" src="assets/work/translios.webp" alt="Sitio de Translios" loading="lazy" />
+      <div class="rr-cases">
+
+        <article class="rr-case reveal">
+          <a class="rr-case__shot" href="https://translios-web.vercel.app" target="_blank" rel="noopener" aria-label="Ver Translios en vivo">
+            <img src="assets/work/translios.webp" alt="Sitio web de Translios" loading="lazy" width="880" height="495" />
+            <span class="rr-case__view">Ver en vivo ↗</span>
           </a>
-          <a class="rr-row" href="https://rerollhobbystore.com" target="_blank" rel="noopener" data-img="assets/work/reroll.webp">
-            <span class="rr-row__num">02</span>
-            <span class="rr-row__name">Reroll Hobby Store</span>
-            <span class="rr-row__tag">E-commerce TCG</span>
-            <span class="rr-row__arr">↗</span>
-            <img class="rr-row__thumb" src="assets/work/reroll.webp" alt="Tienda Reroll Hobby Store" loading="lazy" />
+          <div class="rr-case__body">
+            <span class="rr-case__kind">Transporte turístico · Guanacaste</span>
+            <h3 class="rr-case__name">Translios</h3>
+            <p class="rr-case__out">Rebrand completo, hero en video y reservas claras. Un sitio que transmite confianza y hace fácil coordinar el traslado.</p>
+            <div class="rr-case__tags"><span>Next.js</span><span>Reservas</span><span>Rebrand</span></div>
+            <a class="rr-case__link" href="https://translios-web.vercel.app" target="_blank" rel="noopener">Ver sitio ↗</a>
+          </div>
+        </article>
+
+        <article class="rr-case reveal">
+          <a class="rr-case__shot" href="https://rerollhobbystore.com" target="_blank" rel="noopener" aria-label="Ver Reroll Hobby Store en vivo">
+            <img src="assets/work/reroll.webp" alt="Tienda Reroll Hobby Store" loading="lazy" width="880" height="495" />
+            <span class="rr-case__view">Ver en vivo ↗</span>
           </a>
-          <a class="rr-row" href="https://fauna-travesia.vercel.app" target="_blank" rel="noopener" data-img="assets/work/fauna.webp">
-            <span class="rr-row__num">03</span>
-            <span class="rr-row__name">Fauna · Travesía</span>
-            <span class="rr-row__tag">Juego web · vanilla</span>
-            <span class="rr-row__arr">↗</span>
-            <img class="rr-row__thumb" src="assets/work/fauna.webp" alt="Juego Fauna Travesía" loading="lazy" />
+          <div class="rr-case__body">
+            <span class="rr-case__kind">Tienda online · TCG</span>
+            <h3 class="rr-case__name">Reroll Hobby Store</h3>
+            <p class="rr-case__out">Catálogo con cientos de cartas, buscador, carrito y pedidos por WhatsApp. Vende directo desde su web, sin comisiones de marketplace.</p>
+            <div class="rr-case__tags"><span>E-commerce</span><span>Catálogo</span><span>WhatsApp</span></div>
+            <a class="rr-case__link" href="https://rerollhobbystore.com" target="_blank" rel="noopener">Ver sitio ↗</a>
+          </div>
+        </article>
+
+        <article class="rr-case reveal">
+          <a class="rr-case__shot" href="https://fauna-travesia.vercel.app" target="_blank" rel="noopener" aria-label="Ver Fauna Travesía en vivo">
+            <img src="assets/work/fauna.webp" alt="Juego Fauna · Travesía" loading="lazy" width="880" height="495" />
+            <span class="rr-case__view">Ver en vivo ↗</span>
           </a>
-        </div>
-        <div class="rr-preview reveal" aria-hidden="true">
-          <img id="rrPreviewImg" src="assets/work/translios.webp" alt="" />
-        </div>
+          <div class="rr-case__body">
+            <span class="rr-case__kind">Juego web · experimento propio</span>
+            <h3 class="rr-case__name">Fauna · Travesía</h3>
+            <p class="rr-case__out">Un roguelike de cartas sobre la fauna de Costa Rica, hecho en JavaScript puro. La prueba de que con código propio se puede crear cualquier cosa.</p>
+            <div class="rr-case__tags"><span>Vanilla JS</span><span>Canvas</span><span>Juego</span></div>
+            <a class="rr-case__link" href="https://fauna-travesia.vercel.app" target="_blank" rel="noopener">Jugar ↗</a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
