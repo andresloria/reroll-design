@@ -196,7 +196,7 @@ img{max-width:100%;display:block}
 .page-hero__title{font-size:clamp(30px,5.5vw,48px);font-weight:700;letter-spacing:-1.2px;margin:14px 0 0}
 .page-hero__sub{font-size:17px;color:var(--muted);max-width:620px;margin:18px 0 0;line-height:1.7}
 
-.two-up{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
+.two-up{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
 .two-up__item{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:#fff}
 .two-up__num{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink);line-height:1}
 .two-up__name{font-size:16px;font-weight:600}
@@ -396,6 +396,15 @@ body.rr{background:#0c0b0d;color:#f4f1ea}
 .rr-plans{position:relative;z-index:2;padding:76px 0}
 .rr-plans__in{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;background:linear-gradient(120deg,#161318,#100e13);border:1px solid #26222b;border-radius:20px;padding:44px}
 
+/* servicios "lo que hago" (home) */
+.rr-svc{position:relative;z-index:2;padding:76px 0}
+.rr-svc__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rr-svc__card{display:block;background:#141217;border:1px solid #26222b;border-radius:16px;padding:26px 24px;text-decoration:none;color:#f4f1ea;transition:transform .18s ease,border-color .18s ease}
+.rr-svc__card:hover{transform:translateY(-3px);border-color:var(--gold)}
+.rr-svc__card h3{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;font-size:19px;margin:2px 0 8px}
+.rr-svc__card p{font-size:14px;color:#a49e94;line-height:1.55;margin-bottom:14px}
+.rr-svc__price{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--gold)}
+
 .rr-contact{position:relative;z-index:2;padding:96px 0;text-align:center}
 .rr-contact__in{max-width:640px;margin:0 auto}
 .rr-contact__title{font-weight:800;font-size:clamp(44px,9vw,92px);line-height:.94;letter-spacing:-.03em;margin:14px 0 16px}
@@ -418,6 +427,7 @@ body.rr{background:#0c0b0d;color:#f4f1ea}
   .rr-case{grid-template-columns:1fr;gap:22px;padding:30px 0}
   .rr-case:nth-child(even) .rr-case__shot{order:0}
   .rr-case__view{opacity:1;transform:none}
+  .rr-svc__grid{grid-template-columns:1fr}
 }
 @media (max-width:600px){
   .rr-nav__links a:not(.rr-btn){display:none}
