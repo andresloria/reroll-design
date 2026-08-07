@@ -7,7 +7,7 @@ Sitio de **Reroll Design** (negocio de diseño y desarrollo web de Andrés Lorí
 - **Contacto cableado:** WhatsApp +506 8780 7813 · correo rerolldesigncr@gmail.com
 
 ## Stack
-HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=10 / JS v=5**.
+HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=11 / JS v=6**.
 
 ## Identidad visual (dark editorial · verde láser)
 Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de **dados / "reroll"**. (Paleta anterior dorada `#E8B84B` sobre negro cálido, reemplazada en agosto 2026.)
@@ -27,7 +27,7 @@ Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de 
 3. **Trabajo** — showcase de proyectos: cada uno una fila grande con captura (`assets/work/*.webp`), tipo, resultado en una frase, chips de tecnología y "Ver sitio". Casos: **Translios** (translioscostarica.com), **Reroll Hobby Store** (rerollhobbystore.com), **Fauna · Travesía**.
 4. **Cómo trabajo** — 3 pasos en tarjetas con caras de dado (1/2/3 pips). **Los dados numerados viven SOLO acá**, porque acá el orden significa algo (primero contás la idea, después diseño, después publico).
 5. **Web, redes y branding** (`.rr-svc__list`, id `servicios`) — **selector de disciplina**: 3 filas grandes, cada una un enlace completo con nombre, descripción, "desde ₡X" en mono verde y un botón **Ver planes →** que se enciende al pasar por encima (en celular ocupa todo el ancho, porque en táctil no hay hover). Van a `servicios.html#creacion`, `#redes` y `#branding` — **en la misma pestaña** (decisión de Andrés, 2026-08-07). Páginas web ₡180.000 (con el mantenimiento desde ₡15.000/mes como línea secundaria), Redes ₡85.000/mes, Branding ₡150.000. **Sin dados a propósito:** los servicios no son una secuencia y el 1‑2‑3 sugería un ranking falso.
-6. **Contacto** grande ("Tu próximo sitio empieza acá.") + footer.
+6. **Contacto** grande ("Tu próximo sitio empieza acá.") + **pie con contenido** (marca + los 4 servicios + WhatsApp/correo/ciudad + barra inferior). El pie es el MISMO componente `.rr-foot` en las dos páginas (antes servicios usaba `.footer`, ya eliminado).
 
 Hubo un **marquee** de adjetivos entre el hero y Trabajo: se eliminó (no aportaba información y competía con el hero justo donde el visitante debe bajar a ver los proyectos).
 
@@ -46,6 +46,15 @@ Dos problemas reales, encontrados con emulación móvil (no había desbordamient
 1. **No había menú.** Los enlaces del nav estaban en `display:none` bajo 600 px sin nada que los reemplazara → desde el celular **no se podía llegar a Planes**. Ahora hay **hamburguesa de 3 líneas** (`.rr-burger` + `.rr-menu` + `.rr-scrim`, JS al final de `app.js`) en AMBAS páginas, con cierre por Escape, por tocar afuera y al elegir un enlace. Bajo 760 px el nav queda: marca a la izquierda, botón de WhatsApp solo-ícono + hamburguesa a la derecha.
 2. **La comparativa era ilegible.** La tabla mide 560 px contra 325 px de pantalla: se veía solo la columna "Básico" y el encabezado quedaba fuera. Ahora bajo 700 px **cada fila se vuelve una tarjeta** con los tres planes etiquetados; los `<td>` llevan `data-p="Básico|Profesional|Tienda"` y el CSS los imprime con `content:attr(data-p)`. **Si se agregan filas o tablas nuevas, hay que ponerles `data-p`** o en celular saldrán sin etiqueta.
 Además: botones a ancho completo, toggle Creación⇄Mantenimiento al 100 % y chips más compactos.
+
+## Calidad de uso en celular (auditada, agosto 2026)
+El 90% de las visitas son de teléfono, **donde no existe el hover**. Lo que se corrigió y hay que mantener:
+- **Estado `:active` obligatorio.** Antes solo `.btn` y el pill de Reroll lo tenían: tocar un CTA no producía ninguna reacción. Ahora los botones y filas hacen `transform:scale(.97)` al tocarse. **Todo elemento tocable nuevo necesita su `:active`.**
+- **Área de toque ≥ 44 px.** Medido: la hamburguesa era 40×40 y los enlaces de texto ("Ver sitio ↗", "Quiero el mío →") 21–24 px de alto. Se agranda con un `::after` invisible (`height:44px`) para no cambiar el aspecto. Los enlaces del pie llevan `padding:12px 0` en celular.
+- **`touch-action:manipulation`** en `a`, `button` y `[role=tab]` → elimina el retardo de 300 ms del doble tap.
+- **Texto ≥ 16 px** en el cuerpo (`.rr-sub` arranca en 16, las descripciones chicas en 15).
+- **`prefers-reduced-motion`** ahora es una regla general (`*`) que anula animaciones y transiciones, no solo el reveal y el logo.
+- Verificar con estilos computados, no a ojo: medir `getBoundingClientRect()` de cada `a`/`button` a 375 px.
 
 ## Deploy / Vercel
 Push a `main` → Vercel despliega (~1 min). Dominio `rerolldesign.com` comprado y gestionado en Vercel (apex principal, nameservers ns1/ns2.vercel-dns.com). **Ojo:** a veces el edge de Vercel queda cacheado y tarda o no refleja un push (`X-Vercel-Cache: HIT`, `Age` alto); se resuelve solo o con **Redeploy manual** en el panel (Deployments → ⋯ → Redeploy, sin build cache). NO poner `functions/maxDuration` en `vercel.json` (rompe el build).

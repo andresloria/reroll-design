@@ -202,3 +202,26 @@ document.getElementById('year').textContent = new Date().getFullYear();
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
   window.addEventListener('resize', function () { if (window.innerWidth > 760) set(false); });
 })();
+
+// ============ Nav: marcar la sección en la que estás ============
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.rr-nav__links a[href^="#"]'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var mapa = {};
+  links.forEach(function (a) {
+    var s = document.querySelector(a.getAttribute('href'));
+    if (s) mapa[s.id] = a;
+  });
+  var ids = Object.keys(mapa);
+  if (!ids.length) return;
+  var visibles = {};
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visibles[e.target.id] = e.isIntersecting; });
+    var activa = ids.filter(function (id) { return visibles[id]; })[0];
+    ids.forEach(function (id) {
+      if (id === activa) mapa[id].setAttribute('aria-current', 'true');
+      else mapa[id].removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  ids.forEach(function (id) { io.observe(document.getElementById(id)); });
+})();

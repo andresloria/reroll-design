@@ -174,12 +174,6 @@ img{max-width:100%;display:block}
 .contacto__sub{font-size:17px;color:var(--muted);margin:16px 0 28px}
 .contacto__btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* ---------- footer ---------- */
-.footer{border-top:1px solid var(--line);padding:34px 0;background:var(--paper)}
-.footer__inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.footer__logo{opacity:.85}
-.footer__logo>img,img.footer__logo{height:26px;width:auto}
-.footer__meta{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--faint)}
 
 /* ---------- reveal animation ---------- */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
@@ -300,7 +294,6 @@ thead .ptable__pop{background:var(--ink);color:#fff}
   .cards{grid-template-columns:1fr}
   .hero{padding:64px 0 56px}
   .section{padding:60px 0}
-  .footer__inner{flex-direction:column;align-items:flex-start;gap:14px}
   .two-up{grid-template-columns:1fr}
   .pkg-grid{grid-template-columns:1fr}
   .split{grid-template-columns:1fr;gap:36px}
@@ -325,7 +318,7 @@ body.rr{
 .rr-h1{font-weight:800;font-size:clamp(46px,10vw,104px);line-height:.92;letter-spacing:-.03em;margin:18px 0 0}
 .rr-word{color:var(--gold);display:inline-block}
 .rr-h2{font-weight:700;font-size:clamp(28px,5vw,46px);line-height:1.03;letter-spacing:-.02em}
-.rr-sub{font-size:clamp(15px,2vw,18px);color:#B0B0B0;line-height:1.6}
+.rr-sub{font-size:clamp(16px,2vw,18px);color:#B0B0B0;line-height:1.6}
 .rr-sub b{color:#FFFFFF;font-weight:600}
 
 .rr-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font);font-weight:600;font-size:14px;padding:13px 22px;border-radius:10px;border:1px solid #3A3A3A;background:transparent;color:#FFFFFF;cursor:pointer;transition:.15s;text-decoration:none;white-space:nowrap}
@@ -511,8 +504,6 @@ body.rr{
 .rr .btn--ink:hover{background:#B0E83A;border-color:#B0E83A}
 .rr .btn--ghost{background:transparent;border-color:#3A3A3A;color:#FFFFFF}
 .rr .btn--ghost:hover{border-color:var(--gold);color:var(--gold)}
-.rr .footer{background:#181818;border-color:#242424}
-.rr .footer__meta{color:#909090}
 
 
 /* ================= MÓVIL: menú + acento disciplinado ================= */
@@ -601,4 +592,72 @@ body.rr-menu-open .rr-scrim{opacity:1;visibility:visible}
   .dice__toggle{width:100%;justify-content:center}
   .dice__tab{flex:1;padding:10px 8px;font-size:12px}
   .rr-case__tags span{font-size:11px;padding:4px 10px}
+}
+
+/* ============ CALIDAD DE USO EN CELULAR ============
+   El 90% de las visitas son desde el teléfono, donde NO existe el hover:
+   sin estado :active el usuario toca y la pantalla no responde. */
+
+/* 1 · respuesta inmediata al tocar */
+.rr-btn:active,.btn:active,.rr-svc__go:active,.dcard__cta:active,
+.rr-case__link:active,.rr-work__cta:active{transform:scale(.97)}
+.rr-svc__row:active{background:rgba(197,255,69,.05)}
+.rr-menu a:active,.rr-foot__col a:active{color:var(--gold)}
+.rr-burger:active span{background:var(--gold)}
+.rr-case__shot:active{border-color:var(--gold)}
+
+/* 2 · sin retardo de 300 ms al tocar */
+a,button,[role=tab]{touch-action:manipulation}
+
+/* 3 · área de toque de 44 px sin cambiar el aspecto */
+.rr-burger{width:44px;height:44px}
+@media (max-width:760px){
+  .rr-nav__links .rr-btn,.nav__links .btn{min-height:44px}
+  .rr-work__cta,.rr-case__link,.rr-brand,.nav__brand{position:relative}
+  .rr-work__cta::after,.rr-case__link::after,.rr-brand::after,.nav__brand::after{
+    content:'';position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    height:44px;min-width:44px}
+}
+
+/* 4 · texto legible en pantalla chica (mínimo recomendado: 16 px) */
+@media (max-width:600px){
+  .rr-svc__desc,.rr-step p,.pkg__for,.rr-svc__lead{font-size:15px}
+  .check-list li,.rr .check-list li{font-size:16px}
+}
+
+/* 5 · quien pide menos movimiento, recibe menos movimiento */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* el precio es lo que la gente busca en el selector: que pese */
+.rr-svc__amount{font-size:18px}
+
+/* sección actual marcada en el nav mientras se hace scroll */
+.rr-nav__links a[aria-current=true]{color:var(--gold)}
+
+/* ============ PIE DE PÁGINA CON CONTENIDO ============ */
+.rr-foot__in{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px;
+  align-items:start;padding-bottom:28px}
+.rr-foot__pitch{font-size:14px;color:#B0B0B0;line-height:1.6;max-width:270px;margin-top:14px}
+.rr-foot__ttl{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:#909090;margin-bottom:14px}
+.rr-foot__col{display:grid;gap:10px;align-content:start}
+.rr-foot__col a,.rr-foot__col span{font-size:14px;color:#EBEBEB;transition:color .15s ease}
+.rr-foot__col a:hover{color:var(--gold)}
+.rr-foot__col span{color:#909090}
+.rr-foot__bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-top:1px solid #242424;padding-top:22px;
+  font-family:var(--mono);font-size:12px;color:#909090}
+@media (max-width:860px){
+  .rr-foot__in{grid-template-columns:1fr 1fr;gap:32px}
+  .rr-foot__brand{grid-column:1/-1}
+}
+@media (max-width:600px){
+  .rr-foot__in{grid-template-columns:1fr;gap:28px}
+  /* enlaces del pie con 44 px de alto para tocarlos sin errarle */
+  .rr-foot__col{gap:0}
+  .rr-foot__col a,.rr-foot__col span{padding:12px 0}
 }
