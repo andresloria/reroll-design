@@ -126,7 +126,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         if (p.y < 0) { p.y = H; p.x = Math.random() * W; }
         var fade = 1 - (p.y / H) * 0.7;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
-        ctx.fillStyle = 'rgba(255,250,240,' + (p.o * 0.55 * fade) + ')'; ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,' + (p.o * 0.55 * fade) + ')'; ctx.fill();
       }
       requestAnimationFrame(draw);
     }

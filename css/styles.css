@@ -306,6 +306,13 @@ thead .ptable__pop{background:var(--ink);color:#fff}
 
 /* ================= HOME dark editorial (rr-) ================= */
 body.rr{background:#181818;color:#FFFFFF}
+/* los tokens del tema claro, reinterpretados en oscuro: así CUALQUIER componente
+   que no tenga un override .rr explícito igual cae en la paleta nueva
+   (antes la banda de planes heredaba bordes #ececec del tema claro) */
+body.rr{
+  --ink:#FFFFFF; --ink-soft:#EBEBEB; --paper:#181818; --soft:#1C1C1C;
+  --muted:#B0B0B0; --faint:#717171; --line:#242424; --line-2:#2E2E2E;
+}
 .rr-disp,.rr-h1,.rr-h2,.rr-row__name,.rr-case__name,.rr-step h3,.rr-contact__title{font-family:'Bricolage Grotesque','Inter',sans-serif}
 .rr-grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
