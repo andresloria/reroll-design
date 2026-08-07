@@ -7,7 +7,7 @@ Sitio de **Reroll Design** (negocio de diseño y desarrollo web de Andrés Lorí
 - **Contacto cableado:** WhatsApp +506 8780 7813 · correo rerolldesigncr@gmail.com
 
 ## Stack
-HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=8 / JS v=5**.
+HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=10 / JS v=5**.
 
 ## Identidad visual (dark editorial · verde láser)
 Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de **dados / "reroll"**. (Paleta anterior dorada `#E8B84B` sobre negro cálido, reemplazada en agosto 2026.)
@@ -26,17 +26,19 @@ Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de 
 2. **Hero** — titular "Sitios web que **[palabra]**." con botón **↻ Reroll** que rerollea la palabra (venden→convierten→enamoran…) y tira un dado SVG.
 3. **Trabajo** — showcase de proyectos: cada uno una fila grande con captura (`assets/work/*.webp`), tipo, resultado en una frase, chips de tecnología y "Ver sitio". Casos: **Translios** (translioscostarica.com), **Reroll Hobby Store** (rerollhobbystore.com), **Fauna · Travesía**.
 4. **Cómo trabajo** — 3 pasos en tarjetas con caras de dado (1/2/3 pips). **Los dados numerados viven SOLO acá**, porque acá el orden significa algo (primero contás la idea, después diseño, después publico).
-5. **Lo que hago** (`.rr-svc__list`) — índice de 3 filas, no tarjetas: nombre grande a la izquierda, "desde ₡X" en mono verde a la derecha + la unidad (pago único / por mes), línea fina entre filas y flecha que se desliza al hover. Sitios web ₡180.000, Mantenimiento ₡15.000, Redes ₡85.000 → enlazan a `servicios.html`. **Sin dados a propósito:** los tres servicios no son una secuencia y el 1‑2‑3 sugería un ranking falso; además, en tarjetas la sección era un calco visual de "Cómo trabajo".
+5. **Web, redes y branding** (`.rr-svc__list`, id `servicios`) — **selector de disciplina**: 3 filas grandes, cada una un enlace completo con nombre, descripción, "desde ₡X" en mono verde y un botón **Ver planes →** que se enciende al pasar por encima (en celular ocupa todo el ancho, porque en táctil no hay hover). Van a `servicios.html#creacion`, `#redes` y `#branding` — **en la misma pestaña** (decisión de Andrés, 2026-08-07). Páginas web ₡180.000 (con el mantenimiento desde ₡15.000/mes como línea secundaria), Redes ₡85.000/mes, Branding ₡150.000. **Sin dados a propósito:** los servicios no son una secuencia y el 1‑2‑3 sugería un ranking falso.
 6. **Contacto** grande ("Tu próximo sitio empieza acá.") + footer.
 
 Hubo un **marquee** de adjetivos entre el hero y Trabajo: se eliminó (no aportaba información y competía con el hero justo donde el visitante debe bajar a ver los proyectos).
 
 JS (`js/app.js`): año dinámico, reveal on scroll (IntersectionObserver), reroll del hero + tirada del dado, dados de los pasos (`.rr-step__die[data-pips]`), el menú móvil y el toggle animado de la sección de planes con dados (solo en servicios).
 
-## Planes (`servicios.html`) — 3 servicios
+## Planes (`servicios.html`) — 4 servicios
 **01 · Creación de sitios** (pago único): Básico desde ₡180.000, Profesional desde ₡500.000 (más elegido), Tienda desde ₡900.000. Incluido en todos, tabla comparativa, complementos, cómo trabajo, formas de pago (50/50).
 **02 · Mantenimiento mensual:** Esencial ₡15.000, Profesional ₡25.000, Tienda ₡40.000 (anual = 2 meses gratis). Tabla comparativa + precios + qué no incluye.
 **03 · Redes y marketing** (mensual, Instagram + Facebook): Presencia desde ₡85.000, Activo desde ₡150.000 (más elegido), Impulso desde ₡280.000. Precios definidos con estudio de mercado CR 2025-26 (agencias arrancan en ₡250k; se evitó el tramo "barato/no serio"). La pauta de anuncios la paga el cliente aparte.
+**04 · Branding e identidad** (pago único, desde ₡150.000): logotipo con variantes, paleta y tipografías, manual de marca, tarjeta y firma, archivos editables, 2 rondas. Sin paquetes: es una sola oferta con `split` (qué incluye / por qué conviene primero) y CTA a WhatsApp. Precio definido por Andrés el 2026-08-07 (el mockup que lo propuso traía ₡120.000 inventados; se subió a ₡150.000 para no quedar por debajo de la landing de ₡180.000).
+
 Arriba: banda premium de planes con **dados** y toggle animado **Creación ⇄ Mantenimiento** (precios que se animan contando). Estrategia de precios: se muestran "desde ₡X" (transparencia, decidido con Andrés).
 
 ## Móvil (arreglado en agosto 2026)
@@ -53,3 +55,5 @@ Generador en el scratchpad de la sesión: `build_reroll_pdf.py` construye un HTM
 
 ## Pendiente
 - Sección **"Sobre mí"** con foto de Andrés (la pieza de calidez humana que falta).
+- **Prueba social:** una frase real de un cliente (Translios) — hoy no hay ningún testimonio.
+- **PDF desactualizado:** `build_reroll_pdf.py` todavía no incluye Branding (04). Regenerarlo cuando se use comercialmente.
