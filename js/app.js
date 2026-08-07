@@ -42,8 +42,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
   // cara de dado en SVG (estilo del logo)
   function die(pips) {
     var pos = { 1: [[62, 62]], 2: [[40, 40], [84, 84]], 3: [[38, 38], [62, 62], [86, 86]] }[pips];
-    var c = pos.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="9" fill="#E8B84B"/>'; }).join('');
-    return '<svg viewBox="0 0 125 125" width="34" height="34" aria-hidden="true"><rect x="8" y="8" width="109" height="109" rx="26" fill="none" stroke="#f4f1ea" stroke-width="7"/>' + c + '</svg>';
+    var c = pos.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="9" fill="#C5FF45"/>'; }).join('');
+    return '<svg viewBox="0 0 125 125" width="34" height="34" aria-hidden="true"><rect x="8" y="8" width="109" height="109" rx="26" fill="none" stroke="#FFFFFF" stroke-width="7"/>' + c + '</svg>';
   }
 
   function cardHTML(p) {
@@ -144,8 +144,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
     6: [[30, 28], [70, 28], [30, 50], [70, 50], [30, 72], [70, 72]]
   };
   function dieMarkup(n) {
-    var c = pips[n].map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="8" fill="#E8B84B"/>'; }).join('');
-    return '<rect x="6" y="6" width="88" height="88" rx="20" fill="none" stroke="#f4f1ea" stroke-width="6"/>' + c;
+    var c = pips[n].map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="8" fill="#C5FF45"/>'; }).join('');
+    return '<rect x="6" y="6" width="88" height="88" rx="20" fill="none" stroke="#FFFFFF" stroke-width="6"/>' + c;
   }
   var rand = function () { return 1 + Math.floor(Math.random() * 6); };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -193,4 +193,25 @@ document.getElementById('year').textContent = new Date().getFullYear();
       });
     });
   }
+})();
+
+
+// ============ Menú móvil (hamburguesa) ============
+(function () {
+  var burger = document.getElementById('rrBurger');
+  var menu = document.getElementById('rrMenu');
+  if (!burger || !menu) return;
+  var scrim = document.getElementById('rrScrim');
+  function set(open) {
+    document.body.classList.toggle('rr-menu-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  burger.addEventListener('click', function () {
+    set(burger.getAttribute('aria-expanded') !== 'true');
+  });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  if (scrim) scrim.addEventListener('click', function () { set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 760) set(false); });
 })();

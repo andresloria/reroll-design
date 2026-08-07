@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <link rel="stylesheet" href="css/styles.css?v=8" />
 </head>
 <body class="rr">
   <div class="rr-grain" aria-hidden="true"></div>
@@ -41,10 +41,20 @@
         <a href="index.html#trabajo">Trabajo</a>
         <a href="servicios.html" aria-current="page">Planes</a>
         <a href="index.html#contacto">Contacto</a>
-        <a href="https://wa.me/50687807813?text=%C2%A1Hola%20Reroll%20Design!%20Quiero%20cotizar%20un%20sitio%20web." class="btn btn--ink btn--sm" target="_blank" rel="noopener">Cotizá tu sitio</a>
+        <a href="https://wa.me/50687807813?text=%C2%A1Hola%20Reroll%20Design!%20Quiero%20cotizar%20un%20sitio%20web." class="btn btn--ink btn--sm" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" class="rr-ico rr-nav__wa"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.3.6.6-3.2-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C6 9.9 10.5 5.5 16 5.5S26 9.9 26 15 21.5 24.8 16 24.8z"/></svg><span class="rr-nav__ctatxt">Cotizá tu sitio</span></a>
       </nav>
+      <button class="rr-burger" id="rrBurger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="rrMenu"><span></span><span></span><span></span></button>
     </div>
   </header>
+  <div class="rr-scrim" id="rrScrim" aria-hidden="true"></div>
+  <div class="rr-menu" id="rrMenu">
+      <a href="index.html#trabajo">Trabajo</a>
+      <a href="servicios.html" aria-current="page">Planes</a>
+      <a href="#redes">Redes y marketing</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="rr-btn rr-btn--gold rr-btn--lg" href="https://wa.me/50687807813?text=%C2%A1Hola%20Reroll%20Design!%20Quiero%20cotizar%20un%20sitio%20web." target="_blank" rel="noopener">Cotizá tu sitio</a>
+      <p class="rr-menu__meta">+506 8780 7813 · Cartago, Costa Rica</p>
+  </div>
 
   <!-- ============ HERO ============ -->
   <section class="page-hero">
@@ -134,19 +144,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Páginas incluidas</td><td>1 (landing)</td><td class="ptable__pop">Hasta 5</td><td>Hasta 5 + catálogo</td></tr>
-            <tr><td>Diseño a medida</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Adaptado a celular</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>WhatsApp y formulario</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>SEO para Google</td><td>Básico</td><td class="ptable__pop">Avanzado</td><td>Avanzado</td></tr>
-            <tr><td>Galería / portafolio</td><td class="no">—</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Google Analytics</td><td class="no">—</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Catálogo de productos</td><td class="no">—</td><td class="no ptable__pop">—</td><td class="yes">✓</td></tr>
-            <tr><td>Carrito / pedidos</td><td class="no">—</td><td class="no ptable__pop">—</td><td class="yes">✓</td></tr>
-            <tr><td>Panel para administrar</td><td class="no">—</td><td class="no ptable__pop">—</td><td class="yes">✓</td></tr>
-            <tr><td>Rondas de revisión</td><td>1</td><td class="ptable__pop">2</td><td>3</td></tr>
-            <tr><td>Tiempo de entrega</td><td>1–2 sem</td><td class="ptable__pop">2–4 sem</td><td>4–6 sem</td></tr>
-            <tr class="ptable__price"><td>Precio</td><td>desde ₡180.000</td><td class="ptable__pop">desde ₡500.000</td><td>desde ₡900.000</td></tr>
+            <tr><td>Páginas incluidas</td><td data-p="Básico">1 (landing)</td><td class="ptable__pop" data-p="Profesional">Hasta 5</td><td data-p="Tienda">Hasta 5 + catálogo</td></tr>
+            <tr><td>Diseño a medida</td><td class="yes" data-p="Básico">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Adaptado a celular</td><td class="yes" data-p="Básico">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>WhatsApp y formulario</td><td class="yes" data-p="Básico">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>SEO para Google</td><td data-p="Básico">Básico</td><td class="ptable__pop" data-p="Profesional">Avanzado</td><td data-p="Tienda">Avanzado</td></tr>
+            <tr><td>Galería / portafolio</td><td class="no" data-p="Básico">—</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Google Analytics</td><td class="no" data-p="Básico">—</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Catálogo de productos</td><td class="no" data-p="Básico">—</td><td class="no ptable__pop" data-p="Profesional">—</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Carrito / pedidos</td><td class="no" data-p="Básico">—</td><td class="no ptable__pop" data-p="Profesional">—</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Panel para administrar</td><td class="no" data-p="Básico">—</td><td class="no ptable__pop" data-p="Profesional">—</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Rondas de revisión</td><td data-p="Básico">1</td><td class="ptable__pop" data-p="Profesional">2</td><td data-p="Tienda">3</td></tr>
+            <tr><td>Tiempo de entrega</td><td data-p="Básico">1–2 sem</td><td class="ptable__pop" data-p="Profesional">2–4 sem</td><td data-p="Tienda">4–6 sem</td></tr>
+            <tr class="ptable__price"><td>Precio</td><td data-p="Básico">desde ₡180.000</td><td class="ptable__pop" data-p="Profesional">desde ₡500.000</td><td data-p="Tienda">desde ₡900.000</td></tr>
           </tbody>
         </table>
       </div>
@@ -255,15 +265,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Hosting, SSL y dominio gestionado</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Respaldos automáticos</td><td>Semanales</td><td class="ptable__pop">Diarios</td><td>Diarios</td></tr>
-            <tr><td>Monitoreo de disponibilidad</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Actualizaciones de seguridad</td><td class="yes">✓</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Cambios menores al mes</td><td>Hasta 1 h</td><td class="ptable__pop">Hasta 3 h</td><td>Hasta 5 h</td></tr>
-            <tr><td>Optimización de velocidad y SEO básico</td><td class="no">—</td><td class="yes ptable__pop">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Gestión de catálogo de productos</td><td class="no">—</td><td class="no ptable__pop">—</td><td class="yes">✓</td></tr>
-            <tr><td>Reporte mensual</td><td>Simple</td><td class="ptable__pop">Con métricas</td><td>Ventas y métricas</td></tr>
-            <tr><td>Tiempo de respuesta</td><td>48 h hábiles</td><td class="ptable__pop">24 h hábiles</td><td>Mismo día hábil</td></tr>
+            <tr><td>Hosting, SSL y dominio gestionado</td><td class="yes" data-p="Esencial">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Respaldos automáticos</td><td data-p="Esencial">Semanales</td><td class="ptable__pop" data-p="Profesional">Diarios</td><td data-p="Tienda">Diarios</td></tr>
+            <tr><td>Monitoreo de disponibilidad</td><td class="yes" data-p="Esencial">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Actualizaciones de seguridad</td><td class="yes" data-p="Esencial">✓</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Cambios menores al mes</td><td data-p="Esencial">Hasta 1 h</td><td class="ptable__pop" data-p="Profesional">Hasta 3 h</td><td data-p="Tienda">Hasta 5 h</td></tr>
+            <tr><td>Optimización de velocidad y SEO básico</td><td class="no" data-p="Esencial">—</td><td class="yes ptable__pop" data-p="Profesional">✓</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Gestión de catálogo de productos</td><td class="no" data-p="Esencial">—</td><td class="no ptable__pop" data-p="Profesional">—</td><td class="yes" data-p="Tienda">✓</td></tr>
+            <tr><td>Reporte mensual</td><td data-p="Esencial">Simple</td><td class="ptable__pop" data-p="Profesional">Con métricas</td><td data-p="Tienda">Ventas y métricas</td></tr>
+            <tr><td>Tiempo de respuesta</td><td data-p="Esencial">48 h hábiles</td><td class="ptable__pop" data-p="Profesional">24 h hábiles</td><td data-p="Tienda">Mismo día hábil</td></tr>
           </tbody>
         </table>
       </div>
@@ -276,9 +286,9 @@
             <tr><th class="ptable__feat">Plan</th><th>Mensual</th><th>Anual</th><th>Ahorrás</th></tr>
           </thead>
           <tbody>
-            <tr><td>Esencial</td><td>₡15.000</td><td>₡150.000</td><td class="save">₡30.000</td></tr>
-            <tr class="ptable__pop-row"><td>Profesional</td><td>₡25.000</td><td>₡250.000</td><td class="save">₡50.000</td></tr>
-            <tr><td>Tienda</td><td>₡40.000</td><td>₡400.000</td><td class="save">₡80.000</td></tr>
+            <tr><td>Esencial</td><td data-p="Mensual">₡15.000</td><td data-p="Anual">₡150.000</td><td class="save" data-p="Ahorrás">₡30.000</td></tr>
+            <tr class="ptable__pop-row"><td>Profesional</td><td data-p="Mensual">₡25.000</td><td data-p="Anual">₡250.000</td><td class="save" data-p="Ahorrás">₡50.000</td></tr>
+            <tr><td>Tienda</td><td data-p="Mensual">₡40.000</td><td data-p="Anual">₡400.000</td><td class="save" data-p="Ahorrás">₡80.000</td></tr>
           </tbody>
         </table>
       </div>
@@ -399,6 +409,6 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=4"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>
