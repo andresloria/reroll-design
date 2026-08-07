@@ -15,20 +15,23 @@ Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de 
 - **Fondos:** base `#181818`, secciones alternas `#1C1C1C`, tarjetas/paneles `#222222`.
 - **Textos:** principal `#FFFFFF`, chips `#EBEBEB`, párrafos `#B0B0B0`, tenue `#717171`, muy sutil `#454545`.
 - **Bordes:** divisores `#242424`, tarjetas `#2E2E2E`, botones/chips `#3A3A3A`. WhatsApp `#25D366`.
-- **Regla del acento:** el verde se reserva para **conversión** — CTAs, precios, planes, ✓ de las listas, hovers y los puntos de los dados. Las etiquetas decorativas (eyebrows, marquee, rótulos de proyecto) van en gris `#717171` / `#454545`.
+- **Regla del acento:** el verde se reserva para **conversión** — CTAs, precios, planes, ✓ de las listas, hovers y los puntos de los dados. Las etiquetas decorativas (eyebrows, rótulos de proyecto) van en gris.
+- **⚠️ Gris de texto = `#909090`, NO `#717171`.** El "texto tenue" de la paleta da 3.6:1 sobre `#181818` y el `#454545` da 1.8:1 (el pie era ilegible): los dos **fallan** el mínimo AA de 4.5:1 para texto chico. Todo texto tenue usa `#909090` (5.2:1). `#717171` quedó solo para elementos grandes (el número `01/02/03`, que a 64 px solo necesita 3:1). Al agregar texto nuevo, no bajar de `#909090`.
+- **Foco de teclado:** `.rr :focus-visible` dibuja un anillo verde de 2 px. No quitarlo.
 - **Clases del home** con prefijo `rr-`; los componentes oscuros de `servicios.html` se logran con `body class="rr"` + overrides `.rr <componente>` (las clases base quedaron por si alguna vez se necesita una versión clara).
 - **Logo animado:** wordmark sin dado (`logo-white-nodie.png` en oscuro) + un dado SVG posicionado como la "o"; al hover salta y gira 360° (`@keyframes rdHop`). Assets: `logo-white.png`, `logo-black.png`, `logo-white-nodie.png`, `logo-black-nodie.png`, favicons, `og-image.jpg`.
 
 ## Home (`index.html`)
 1. **Nav** dark sticky con logo animado + Trabajo / Planes / Contacto + CTA.
 2. **Hero** — titular "Sitios web que **[palabra]**." con botón **↻ Reroll** que rerollea la palabra (venden→convierten→enamoran…) y tira un dado SVG.
-3. **Marquee** de "lo que hago".
-4. **Trabajo** — showcase de proyectos: cada uno una fila grande con captura (`assets/work/*.webp`), tipo, resultado en una frase, chips de tecnología y "Ver sitio". Casos: **Translios** (translioscostarica.com), **Reroll Hobby Store** (rerollhobbystore.com), **Fauna · Travesía**.
-5. **Cómo trabajo** — 3 pasos con caras de dado (1/2/3 pips).
-6. **Lo que hago** (`.rr-svc`) — 3 tarjetas de servicio con dado: Sitios web (desde ₡180.000), Mantenimiento (desde ₡15.000/mes), Redes y marketing (desde ₡85.000/mes) → enlazan a `servicios.html`.
-7. **Contacto** grande ("Tu próximo sitio empieza acá.") + footer.
+3. **Trabajo** — showcase de proyectos: cada uno una fila grande con captura (`assets/work/*.webp`), tipo, resultado en una frase, chips de tecnología y "Ver sitio". Casos: **Translios** (translioscostarica.com), **Reroll Hobby Store** (rerollhobbystore.com), **Fauna · Travesía**.
+4. **Cómo trabajo** — 3 pasos en tarjetas con caras de dado (1/2/3 pips). **Los dados numerados viven SOLO acá**, porque acá el orden significa algo (primero contás la idea, después diseño, después publico).
+5. **Lo que hago** (`.rr-svc__list`) — índice de 3 filas, no tarjetas: nombre grande a la izquierda, "desde ₡X" en mono verde a la derecha + la unidad (pago único / por mes), línea fina entre filas y flecha que se desliza al hover. Sitios web ₡180.000, Mantenimiento ₡15.000, Redes ₡85.000 → enlazan a `servicios.html`. **Sin dados a propósito:** los tres servicios no son una secuencia y el 1‑2‑3 sugería un ranking falso; además, en tarjetas la sección era un calco visual de "Cómo trabajo".
+6. **Contacto** grande ("Tu próximo sitio empieza acá.") + footer.
 
-JS (`js/app.js`): año dinámico, reveal on scroll (IntersectionObserver), reroll del hero + tirada del dado, dados de los pasos/servicios (`.rr-step__die[data-pips]`), y el toggle animado de la sección de planes con dados (solo en servicios).
+Hubo un **marquee** de adjetivos entre el hero y Trabajo: se eliminó (no aportaba información y competía con el hero justo donde el visitante debe bajar a ver los proyectos).
+
+JS (`js/app.js`): año dinámico, reveal on scroll (IntersectionObserver), reroll del hero + tirada del dado, dados de los pasos (`.rr-step__die[data-pips]`), el menú móvil y el toggle animado de la sección de planes con dados (solo en servicios).
 
 ## Planes (`servicios.html`) — 3 servicios
 **01 · Creación de sitios** (pago único): Básico desde ₡180.000, Profesional desde ₡500.000 (más elegido), Tienda desde ₡900.000. Incluido en todos, tabla comparativa, complementos, cómo trabajo, formas de pago (50/50).

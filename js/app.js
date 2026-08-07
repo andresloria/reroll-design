@@ -180,19 +180,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     });
   }
 
-  // trabajo: preview que cambia al pasar por cada fila
-  var prev = document.getElementById('rrPreviewImg');
-  if (prev) {
-    document.querySelectorAll('.rr-row').forEach(function (row) {
-      row.addEventListener('mouseenter', function () {
-        var src = row.getAttribute('data-img');
-        if (src && prev.getAttribute('src') !== src) {
-          prev.style.opacity = '0';
-          setTimeout(function () { prev.src = src; prev.style.opacity = '1'; }, 120);
-        }
-      });
-    });
-  }
 })();
 
 
