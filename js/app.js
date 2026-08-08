@@ -160,7 +160,16 @@ document.getElementById('year').textContent = new Date().getFullYear();
   var dieSvg = document.getElementById('rrDieSvg');
   var btn = document.getElementById('rrReroll');
   if (word && dieSvg && btn) {
-    var words = ['sitio web', 'Instagram', 'marca', 'tienda online'];
+    // cada disciplina lleva su artículo y su verbo: "Tus redes sociales que
+    // VENDEN" no concuerda con el "Tu ... vende" de las demás
+    var words = [
+      { art: 'Tu',  txt: 'sitio web',      vb: 'vende.'  },
+      { art: 'Tus', txt: 'redes sociales', vb: 'venden.' },
+      { art: 'Tu',  txt: 'marca',          vb: 'vende.'  },
+      { art: 'Tu',  txt: 'tienda online',  vb: 'vende.'  }
+    ];
+    var art = document.getElementById('rrArt');
+    var verb = document.getElementById('rrVerb');
     var wi = 0, rolling = false;
     dieSvg.innerHTML = dieMarkup(5);
 
@@ -168,14 +177,19 @@ document.getElementById('year').textContent = new Date().getFullYear();
       if (rolling) return;
       rolling = true;
       wi = (wi + 1) % words.length;
-      if (reduce) { word.textContent = words[wi]; dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
+      function poner(i) {
+        word.textContent = words[i].txt;
+        if (art) art.textContent = words[i].art;
+        if (verb) verb.textContent = words[i].vb;
+      }
+      if (reduce) { poner(wi); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
       var ticks = 0, iv = setInterval(function () {
         dieSvg.innerHTML = dieMarkup(rand()); ticks++;
         if (ticks > 8) { clearInterval(iv); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; }
       }, 60);
       word.style.transition = 'none'; word.style.opacity = '0'; word.style.transform = 'translateY(10px)';
       setTimeout(function () {
-        word.textContent = words[wi];
+        poner(wi);
         word.style.transition = 'opacity .3s, transform .3s';
         word.style.opacity = '1'; word.style.transform = 'none';
       }, 150);
