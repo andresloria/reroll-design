@@ -160,16 +160,9 @@ document.getElementById('year').textContent = new Date().getFullYear();
   var dieSvg = document.getElementById('rrDieSvg');
   var btn = document.getElementById('rrReroll');
   if (word && dieSvg && btn) {
-    // cada disciplina lleva su artículo y su verbo: "Tus redes sociales que
-    // VENDEN" no concuerda con el "Tu ... vende" de las demás
-    var words = [
-      { art: 'Tu',  txt: 'sitio web',     vb: 'vende.'  },
-      { art: 'Tus', txt: 'redes',         vb: 'venden.' },
-      { art: 'Tu',  txt: 'marca',         vb: 'vende.'  },
-      { art: 'Tu',  txt: 'tienda',        vb: 'vende.'  }
-    ];
-    var art = document.getElementById('rrArt');
-    var verb = document.getElementById('rrVerb');
+    // Todas en plural para que el "que venden." de abajo NUNCA cambie: así lo
+    // único que se mueve en el titular son las letras verdes.
+    var words = ['Sitios web', 'Redes', 'Marcas', 'Tiendas'];
     var wi = 0, rolling = false;
 
     // El titular está centrado, así que al cambiar de palabra toda la línea se
@@ -180,8 +173,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
     medidor.style.cssText = 'position:absolute;left:-9999px;top:0;white-space:nowrap;visibility:hidden';
     word.parentNode.appendChild(medidor);
 
-    function anchoDe(txt) {
-      var cs = getComputedStyle(word);
+    function anchoDe(txt, el) {
+      var cs = getComputedStyle(el || word);
       medidor.style.fontFamily = cs.fontFamily;
       medidor.style.fontSize = cs.fontSize;
       medidor.style.fontWeight = cs.fontWeight;
@@ -190,43 +183,45 @@ document.getElementById('year').textContent = new Date().getFullYear();
       return medidor.getBoundingClientRect().width;
     }
 
-    function fijarAncho(i) {
-      var w = anchoDe(words[i].txt);
-      var disponible = word.parentNode.clientWidth;
-      // si no cabe (pantalla angosta), se deja fluir para que pueda partirse en
-      // dos líneas: un ancho fijo ahí provocaría scroll horizontal
-      if (!disponible || w > disponible - 4) { word.style.width = ''; word.style.whiteSpace = ''; }
-      else { word.style.width = w + 'px'; word.style.whiteSpace = 'nowrap'; }
+    // Cada parte variable (artículo, palabra y verbo) reserva el hueco de su
+    // variante MÁS LARGA. Así el titular queda clavado y lo único que cambia
+    // son las letras: nada se reacomoda.
+    function reservar(el, textos, ref) {
+      if (!el) return;
+      var max = 0;
+      for (var i = 0; i < textos.length; i++) max = Math.max(max, anchoDe(textos[i], el));
+      var disponible = ref.clientWidth;
+      // si no cabe (pantalla angosta) se deja fluir: un ancho fijo ahí
+      // provocaría scroll horizontal
+      if (!disponible || max > disponible - 4) { el.style.width = ''; el.style.whiteSpace = ''; }
+      else { el.style.width = max + 'px'; el.style.whiteSpace = 'nowrap'; }
     }
 
+    function fijarAncho() { reservar(word, words, word.parentNode); }
+
     // medir DESPUÉS de que carguen las tipografías, si no el ancho sale mal
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fijarAncho(wi); });
-    else fijarAncho(wi);
-    window.addEventListener('resize', function () { fijarAncho(wi); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fijarAncho);
+    else fijarAncho();
+    window.addEventListener('resize', fijarAncho);
     dieSvg.innerHTML = dieMarkup(5);
 
     function rodar() {
       if (rolling) return;
       rolling = true;
       wi = (wi + 1) % words.length;
-      function poner(i) {
-        word.textContent = words[i].txt;
-        if (art) art.textContent = words[i].art;
-        if (verb) verb.textContent = words[i].vb;
-      }
-      if (reduce) { poner(wi); fijarAncho(wi); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
+      function poner(i) { word.textContent = words[i]; }
+      if (reduce) { poner(wi); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
       var ticks = 0, iv = setInterval(function () {
         dieSvg.innerHTML = dieMarkup(rand()); ticks++;
         if (ticks > 8) { clearInterval(iv); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; }
       }, 60);
       // el ancho se anima mientras la palabra está invisible: el titular se
       // acomoda deslizándose y la palabra nueva aparece ya en su lugar
-      word.style.transition = 'width .38s cubic-bezier(.2,.8,.2,1)';
+      word.style.transition = 'none';
       word.style.opacity = '0'; word.style.transform = 'translateY(10px)';
-      fijarAncho(wi);
       setTimeout(function () {
         poner(wi);
-        word.style.transition = 'opacity .3s, transform .3s, width .38s cubic-bezier(.2,.8,.2,1)';
+        word.style.transition = 'opacity .3s, transform .3s';
         word.style.opacity = '1'; word.style.transform = 'none';
       }, 150);
     }
