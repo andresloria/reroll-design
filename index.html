@@ -27,10 +27,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=11" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
 </head>
 <body class="rr">
   <div class="rr-grain" aria-hidden="true"></div>
+  <canvas class="rr-spark" id="rrSpark" aria-hidden="true"></canvas>
 
   <!-- ============ NAV ============ -->
   <header class="rr-nav" id="top">
@@ -62,23 +63,31 @@
 
   <!-- ============ HERO ============ -->
   <section class="rr-hero">
+    <div class="rr-hero__bg" aria-hidden="true">
+      <span class="rr-hero__pip" style="left:14%;top:26%"></span>
+      <span class="rr-hero__pip" style="left:86%;top:34%"></span>
+      <span class="rr-hero__pip" style="left:22%;top:76%"></span>
+      <span class="rr-hero__pip" style="left:78%;top:70%"></span>
+    </div>
     <div class="wrap rr-hero__in">
-      <p class="rr-eye reveal">Diseño + desarrollo web · Costa Rica</p>
-      <h1 class="rr-h1 reveal">Sitios web<br />que <span class="rr-word" id="rrWord">venden.</span></h1>
-      <p class="rr-sub reveal">Diseño a la medida para negocios ticos. Sin plantillas, sin relleno — código propio que se ve serio y convierte.</p>
-
-      <button class="rr-reroll reveal" id="rrReroll" type="button" aria-label="Reroll la idea">
+      <p class="rr-eye rr-hero__eye"><span class="w">Páginas web</span><b class="w">·</b><span class="w">Redes</span><b class="w">·</b><span class="w">Branding</span><b class="w">·</b><span class="w">Costa Rica</span></p>
+      <h1 class="rr-h1">
+        <span class="rr-h1__line"><span class="w">Tu</span> <span class="rr-word" id="rrWord">sitio web</span></span>
+        <span class="rr-h1__line"><span class="w">que</span> <span class="w">vende.</span></span>
+      </h1>
+      <p class="rr-sub wb">Diseño tu página, manejo tus redes y construyo tu marca — a mano, sin plantillas, para negocios ticos.</p>
+      <button class="rr-reroll wb" id="rrReroll" type="button" aria-label="Cambiar disciplina">
         <span class="rr-reroll__die"><svg viewBox="0 0 100 100" id="rrDieSvg" aria-hidden="true"></svg></span>
-        <span class="rr-reroll__txt">↻ Reroll la idea</span>
+        <span class="rr-reroll__txt">↻ ¿Qué necesitás?</span>
       </button>
-
-      <div class="rr-hero__cta reveal">
+      <div class="rr-hero__cta wb">
         <a href="#trabajo" class="rr-btn rr-btn--gold rr-btn--lg">Ver mi trabajo</a>
-        <a href="https://wa.me/50687807813?text=%C2%A1Hola%20Reroll%20Design!%20Quiero%20cotizar%20un%20sitio%20web." class="rr-btn rr-btn--lg" target="_blank" rel="noopener">
+        <a href="https://wa.me/50687807813?text=%C2%A1Hola%20Reroll%20Design!%20Quiero%20cotizar%20un%20proyecto." class="rr-btn rr-btn--lg" target="_blank" rel="noopener">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" class="rr-ico"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.3.6.6-3.2-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C6 9.9 10.5 5.5 16 5.5S26 9.9 26 15 21.5 24.8 16 24.8z"/></svg>
           Escribime
         </a>
       </div>
+      <p class="rr-hero__foot wb">Cartago, Costa Rica · Respondo el mismo día</p>
     </div>
   </section>
 
@@ -252,6 +261,6 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=6"></script>
+  <script src="js/app.js?v=7"></script>
 </body>
 </html>

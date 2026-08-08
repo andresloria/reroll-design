@@ -7,7 +7,7 @@ Sitio de **Reroll Design** (negocio de diseño y desarrollo web de Andrés Lorí
 - **Contacto cableado:** WhatsApp +506 8780 7813 · correo rerolldesigncr@gmail.com
 
 ## Stack
-HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=11 / JS v=6**.
+HTML + CSS + JavaScript **vanilla**, sin build, sin frameworks. Solo `index.html`, `servicios.html`, `css/styles.css`, `js/app.js`, `assets/`. Tipografías por Google Fonts: **Bricolage Grotesque** (títulos), **Inter** (texto), **Space Mono** (etiquetas/precios). Cache-busting con `?v=N` en el `<link>` del CSS y el `<script>` (subir en AMBAS páginas al tocar css/js). Actualmente en **CSS v=13 / JS v=7**.
 
 ## Identidad visual (dark editorial · verde láser)
 Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de **dados / "reroll"**. (Paleta anterior dorada `#E8B84B` sobre negro cálido, reemplazada en agosto 2026.)
@@ -23,7 +23,7 @@ Negro neutro, acento **verde láser**, tipografía grande, grano sutil, tema de 
 
 ## Home (`index.html`)
 1. **Nav** dark sticky con logo animado + Trabajo / Planes / Contacto + CTA.
-2. **Hero** — titular "Sitios web que **[palabra]**." con botón **↻ Reroll** que rerollea la palabra (venden→convierten→enamoran…) y tira un dado SVG.
+2. **Hero** — titular **"Tu [disciplina] que vende."**; el botón **↻ ¿Qué necesitás?** rerollea la disciplina (sitio web → Instagram → marca → tienda online) y tira el dado. Antes cambiaba un adjetivo, que no decía nada; ahora el hero demuestra los tres servicios. Las palabras entran una por una (`.w`/`.wb` + `rrWordIn`, retrasos escalonados por JS). Compacto a propósito, para que asome "Proyectos, ya en línea" sin hacer scroll.
 3. **Trabajo** — showcase de proyectos: cada uno una fila grande con captura (`assets/work/*.webp`), tipo, resultado en una frase, chips de tecnología y "Ver sitio". Casos: **Translios** (translioscostarica.com), **Reroll Hobby Store** (rerollhobbystore.com), **Fauna · Travesía**.
 4. **Cómo trabajo** — 3 pasos en tarjetas con caras de dado (1/2/3 pips). **Los dados numerados viven SOLO acá**, porque acá el orden significa algo (primero contás la idea, después diseño, después publico).
 5. **Web, redes y branding** (`.rr-svc__list`, id `servicios`) — **selector de disciplina**: 3 filas grandes, cada una un enlace completo con nombre, descripción, "desde ₡X" en mono verde y un botón **Ver planes →** que se enciende al pasar por encima (en celular ocupa todo el ancho, porque en táctil no hay hover). Van a `servicios.html#creacion`, `#redes` y `#branding` — **en la misma pestaña** (decisión de Andrés, 2026-08-07). Páginas web ₡180.000 (con el mantenimiento desde ₡15.000/mes como línea secundaria), Redes ₡85.000/mes, Branding ₡150.000. **Sin dados a propósito:** los servicios no son una secuencia y el 1‑2‑3 sugería un ranking falso.
@@ -40,6 +40,16 @@ JS (`js/app.js`): año dinámico, reveal on scroll (IntersectionObserver), rerol
 **04 · Branding e identidad** (pago único, desde ₡150.000): logotipo con variantes, paleta y tipografías, manual de marca, tarjeta y firma, archivos editables, 2 rondas. Sin paquetes: es una sola oferta con `split` (qué incluye / por qué conviene primero) y CTA a WhatsApp. Precio definido por Andrés el 2026-08-07 (el mockup que lo propuso traía ₡120.000 inventados; se subió a ₡150.000 para no quedar por debajo de la landing de ₡180.000).
 
 Arriba: banda premium de planes con **dados** y toggle animado **Creación ⇄ Mantenimiento** (precios que se animan contando). Estrategia de precios: se muestran "desde ₡X" (transparencia, decidido con Andrés).
+
+## Fondo del sitio (agosto 2026)
+Tres capas, todas detrás del contenido y sin bloquear clics:
+1. **Retícula** — `body.rr::before`, **fija** a la ventana (72 px, blanco al 4 %) con máscara radial. Al ser fija, el contenido se desliza sobre un plano quieto.
+2. **Burbujas de luz** — `body.rr::after`, **absolutas sobre el body**: 13 manchas verdes repartidas a lo largo de TODO el documento, alternando de lado. Bajando aparecen distintas en cada sección (si fueran fijas, sería siempre la misma luz).
+3. **Partículas** — canvas `#rrSpark` **fijo a la ventana** (`.rr-spark`), ~170 puntos que suben muy despacio; 28 % en verde de marca. Antes este efecto vivía DENTRO de la banda de planes (`.dice__spark`) y por eso se cortaba en su borde; ese canvas quedó desactivado.
+
+**Regla: nada de bandas ni líneas de ancho completo.** Cualquier sección con fondo propio o borde superior/inferior **parte el fondo**: la burbuja que pasa por detrás cambia de brillo de golpe y se ve una costura horizontal. Por eso `.rr-proc`, `.section--soft`, `.dice`, `.page-hero` y las `.table-wrap` van **sin fondo y sin bordes** de ancho completo. Las tarjetas sí llevan fondo (son formas cerradas). Para comprobarlo: recorrer el DOM buscando elementos de más de 1000 px de ancho con `background-color` o borde.
+
+⚠️ **El fondo iluminado obliga a subir los grises del texto.** Medido sobre el punto más brillante de las burbujas, `#B0B0B0` caía a 4.19:1 y `#909090` a 2.85:1. Hoy los grises son **`#BCBCBC` (párrafos)** y **`#B0B0B0` (tenue)**, que dan 5.44:1 y 4.77:1. Si se sube la intensidad de las burbujas, hay que volver a medir.
 
 ## Móvil (arreglado en agosto 2026)
 Dos problemas reales, encontrados con emulación móvil (no había desbordamiento horizontal — las capturas headless engañan, siempre medir `scrollWidth` vs `clientWidth`):

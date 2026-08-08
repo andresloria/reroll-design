@@ -104,7 +104,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   });
 
   // sparkles en canvas (respeta reduced-motion)
-  var cv = document.querySelector('.dice__spark');
+  var cv = null; // reemplazado por el canvas global #rrSpark
   if (cv && !reduce) {
     var section = document.getElementById('planes');
     var ctx = cv.getContext('2d'), W, H, parts = [];
@@ -160,7 +160,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   var dieSvg = document.getElementById('rrDieSvg');
   var btn = document.getElementById('rrReroll');
   if (word && dieSvg && btn) {
-    var words = ['venden.', 'convierten.', 'enamoran.', 'destacan.', 'rinden.'];
+    var words = ['sitio web', 'Instagram', 'marca', 'tienda online'];
     var wi = 0, rolling = false;
     dieSvg.innerHTML = dieMarkup(5);
     btn.addEventListener('click', function () {
@@ -224,4 +224,94 @@ document.getElementById('year').textContent = new Date().getFullYear();
     });
   }, { rootMargin: '-45% 0px -45% 0px' });
   ids.forEach(function (id) { io.observe(document.getElementById(id)); });
+})();
+
+
+// ============ Hero: palabras escalonadas + resplandor de página ============
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.querySelector('.rr-hero');
+  if (hero) {
+    var i = 0;
+    hero.querySelectorAll('.w, .rr-word, .wb').forEach(function (el) {
+      el.style.animationDelay = (reduce ? 0 : i * 70 + 80) + 'ms';
+      i++;
+    });
+  }
+  // la luz de ambiente es CSS puro (body::after): no hay nada que seguir con el
+  // mouse, así se ve como fondo y no como un foco detrás del cursor
+})();
+
+// ============ Partículas de fondo en TODA la página ============
+// Antes este efecto vivía dentro de la banda de planes y se cortaba en su
+// borde. Ahora el canvas está fijo a la ventana: las partículas se ven en
+// cualquier sección y siguen ahí mientras se hace scroll.
+(function () {
+  var cv = document.getElementById('rrSpark');
+  if (!cv || !cv.getContext) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = 1, parts = [];
+
+  function crear() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth || window.innerWidth;
+    H = cv.clientHeight || window.innerHeight;
+    // Si todavía no hay medidas (el contenedor aún no se maquetó: pasa dentro de
+    // un iframe o si la pestaña arranca oculta), reintentar en el próximo cuadro.
+    // Sin esto el canvas queda en 0x0 y NO se dibuja ninguna partícula.
+    if (!W || !H) { requestAnimationFrame(crear); return; }
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.min(170, Math.round(W * H / 7000));
+    parts = [];
+    for (var i = 0; i < n; i++) {
+      parts.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.5 + 0.4,
+        o: Math.random(),
+        vy: Math.random() * 0.09 + 0.015,         // sube MUY despacio
+        vx: (Math.random() - 0.5) * 0.045,         // deriva lateral mínima
+        vo: Math.random() * 0.009 + 0.002,         // parpadeo lento
+        verde: Math.random() < 0.28                // algunas del color de marca
+      });
+    }
+  }
+
+  function pintar() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 6.283);
+      ctx.fillStyle = (p.verde ? 'rgba(197,255,69,' : 'rgba(255,255,255,') + (p.o * 0.5) + ')';
+      ctx.fill();
+    }
+  }
+
+  function animar() {
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      p.y -= p.vy; p.x += p.vx;
+      p.o += p.vo;
+      if (p.o > 1 || p.o < 0.05) p.vo *= -1;
+      if (p.y < -4) { p.y = H + 4; p.x = Math.random() * W; }
+      if (p.x < -4) p.x = W + 4; else if (p.x > W + 4) p.x = -4;
+    }
+    pintar();
+    requestAnimationFrame(animar);
+  }
+
+  crear();
+  if (reduce) {
+    // sin animación: redibujar cuando ya haya medidas
+    (function esperar(){ if (W && H) pintar(); else requestAnimationFrame(esperar); })();
+  } else {
+    animar();
+  }
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t);
+    t = setTimeout(function () { crear(); if (reduce) pintar(); }, 200);
+  });
 })();
