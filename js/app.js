@@ -163,8 +163,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
     var words = ['sitio web', 'Instagram', 'marca', 'tienda online'];
     var wi = 0, rolling = false;
     dieSvg.innerHTML = dieMarkup(5);
-    btn.addEventListener('click', function () {
-      if (rolling) return; rolling = true;
+
+    function rodar() {
+      if (rolling) return;
+      rolling = true;
       wi = (wi + 1) % words.length;
       if (reduce) { word.textContent = words[wi]; dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
       var ticks = 0, iv = setInterval(function () {
@@ -177,7 +179,32 @@ document.getElementById('year').textContent = new Date().getFullYear();
         word.style.transition = 'opacity .3s, transform .3s';
         word.style.opacity = '1'; word.style.transform = 'none';
       }, 150);
+    }
+
+    // Solo el clic para en seco el automático: si el visitante tomó el control,
+    // la palabra deja de cambiarle sola mientras lee.
+    var solo = null;
+    btn.addEventListener('click', function () {
+      if (solo) { clearInterval(solo); solo = null; }
+      rodar();
     });
+
+    // El titular recorre las disciplinas solo, sin que nadie toque el dado.
+    // Se detiene con reduced-motion, y salta el turno si la pestaña está oculta
+    // (no tiene sentido animar contra una pestaña que nadie está viendo).
+    if (!reduce) {
+      var pausado = false;
+      // al pasar el mouse por el hero se pausa, para poder leerlo tranquilo
+      var hero = document.querySelector('.rr-hero');
+      if (hero) {
+        hero.addEventListener('mouseenter', function () { pausado = true; });
+        hero.addEventListener('mouseleave', function () { pausado = false; });
+      }
+      solo = setInterval(function () {
+        if (document.hidden || pausado) return;
+        rodar();
+      }, 4200);
+    }
   }
 
 })();
