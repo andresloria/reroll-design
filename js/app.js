@@ -163,14 +163,46 @@ document.getElementById('year').textContent = new Date().getFullYear();
     // cada disciplina lleva su artículo y su verbo: "Tus redes sociales que
     // VENDEN" no concuerda con el "Tu ... vende" de las demás
     var words = [
-      { art: 'Tu',  txt: 'sitio web',      vb: 'vende.'  },
-      { art: 'Tus', txt: 'redes sociales', vb: 'venden.' },
-      { art: 'Tu',  txt: 'marca',          vb: 'vende.'  },
-      { art: 'Tu',  txt: 'tienda online',  vb: 'vende.'  }
+      { art: 'Tu',  txt: 'sitio web',     vb: 'vende.'  },
+      { art: 'Tus', txt: 'redes',         vb: 'venden.' },
+      { art: 'Tu',  txt: 'marca',         vb: 'vende.'  },
+      { art: 'Tu',  txt: 'tienda',        vb: 'vende.'  }
     ];
     var art = document.getElementById('rrArt');
     var verb = document.getElementById('rrVerb');
     var wi = 0, rolling = false;
+
+    // El titular está centrado, así que al cambiar de palabra toda la línea se
+    // reacomoda de un salto. Midiendo la palabra que viene y animando el ancho,
+    // el titular se DESLIZA en vez de brincar.
+    var medidor = document.createElement('span');
+    medidor.setAttribute('aria-hidden', 'true');
+    medidor.style.cssText = 'position:absolute;left:-9999px;top:0;white-space:nowrap;visibility:hidden';
+    word.parentNode.appendChild(medidor);
+
+    function anchoDe(txt) {
+      var cs = getComputedStyle(word);
+      medidor.style.fontFamily = cs.fontFamily;
+      medidor.style.fontSize = cs.fontSize;
+      medidor.style.fontWeight = cs.fontWeight;
+      medidor.style.letterSpacing = cs.letterSpacing;
+      medidor.textContent = txt;
+      return medidor.getBoundingClientRect().width;
+    }
+
+    function fijarAncho(i) {
+      var w = anchoDe(words[i].txt);
+      var disponible = word.parentNode.clientWidth;
+      // si no cabe (pantalla angosta), se deja fluir para que pueda partirse en
+      // dos líneas: un ancho fijo ahí provocaría scroll horizontal
+      if (!disponible || w > disponible - 4) { word.style.width = ''; word.style.whiteSpace = ''; }
+      else { word.style.width = w + 'px'; word.style.whiteSpace = 'nowrap'; }
+    }
+
+    // medir DESPUÉS de que carguen las tipografías, si no el ancho sale mal
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fijarAncho(wi); });
+    else fijarAncho(wi);
+    window.addEventListener('resize', function () { fijarAncho(wi); });
     dieSvg.innerHTML = dieMarkup(5);
 
     function rodar() {
@@ -182,15 +214,19 @@ document.getElementById('year').textContent = new Date().getFullYear();
         if (art) art.textContent = words[i].art;
         if (verb) verb.textContent = words[i].vb;
       }
-      if (reduce) { poner(wi); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
+      if (reduce) { poner(wi); fijarAncho(wi); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; return; }
       var ticks = 0, iv = setInterval(function () {
         dieSvg.innerHTML = dieMarkup(rand()); ticks++;
         if (ticks > 8) { clearInterval(iv); dieSvg.innerHTML = dieMarkup(rand()); rolling = false; }
       }, 60);
-      word.style.transition = 'none'; word.style.opacity = '0'; word.style.transform = 'translateY(10px)';
+      // el ancho se anima mientras la palabra está invisible: el titular se
+      // acomoda deslizándose y la palabra nueva aparece ya en su lugar
+      word.style.transition = 'width .38s cubic-bezier(.2,.8,.2,1)';
+      word.style.opacity = '0'; word.style.transform = 'translateY(10px)';
+      fijarAncho(wi);
       setTimeout(function () {
         poner(wi);
-        word.style.transition = 'opacity .3s, transform .3s';
+        word.style.transition = 'opacity .3s, transform .3s, width .38s cubic-bezier(.2,.8,.2,1)';
         word.style.opacity = '1'; word.style.transform = 'none';
       }, 150);
     }
